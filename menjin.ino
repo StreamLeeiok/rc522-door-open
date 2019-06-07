@@ -14,20 +14,20 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-#define RST_PIN         3           // Configurable, see typical pin layout above
-#define SS_PIN          10          // Configurable, see typical pin layout above
+#define RST_PIN         3           //引脚定义
+#define SS_PIN          10          
 
 byte myname1[18]="lee";
 byte myname2[18]="qingy";
-MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
+MFRC522 mfrc522(SS_PIN, RST_PIN);   
 bool isyou=false;
 Servo myservo;
 //*****************************************************************************************//
 void setup() {
    
-  SPI.begin();                                                  // Init SPI bus
-  mfrc522.PCD_Init();                                              // Init MFRC522 card
-     //shows in serial that it is ready to read
+  SPI.begin();                                                  // 初始化
+  mfrc522.PCD_Init();                                              
+     
  
 myservo.attach(9);
 }
@@ -35,11 +35,11 @@ myservo.attach(9);
 //*****************************************************************************************//
 void loop() {
 
-  // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
+  
   MFRC522::MIFARE_Key key;
   for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
 
-  //some variables we need
+  
   byte block;
   byte len;
   MFRC522::StatusCode status;
@@ -51,7 +51,7 @@ void loop() {
     return;
   }
 
-  // Select one of the cards
+ 
   if ( ! mfrc522.PICC_ReadCardSerial()) {
     return;
   }
@@ -59,9 +59,9 @@ void loop() {
 
   //-------------------------------------------
 
-  //mfrc522.PICC_DumpDetailsToSerial(&(mfrc522.uid)); //dump some details about the card
+  //mfrc522.PICC_DumpDetailsToSerial(&(mfrc522.uid)); 
 
-  //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));      //uncomment this to see all blocks in hex
+  //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));    
 
   //-------------------------------------------
 
@@ -150,10 +150,10 @@ for(ijk=0;ijk<3;ijk++)
 
 
 
-  delay(500); //change value if you want to read cards faster
+  delay(500);
 
   mfrc522.PICC_HaltA();
-  mfrc522.PCD_StopCrypto1();
+  mfrc522.PCD_StopCrypto1();//关闭
 
 
 
